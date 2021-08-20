@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supercasters</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.47/dist/themes/base.css">
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.47/dist/shoelace.js"></script>
+
+  <link rel="stylesheet" href="css/main.css" />
+
+  <script src="https://supercast.test/js/embed.js"></script>
+</head>
+<body>
+  <div class='nav'>
+    <a href="#">Listen</a>
+    <a href="#">Support Us</a>
+    <sl-button>Log in with Supercast</sl-button>
+  </div>
+
+  <div class='hero'>
+    <img src="images/podcast-mic-blue.png">
+    <div>
+      <h1>Chatting with Cheeseburgers Podcast</h1>
+      <p>A weekly podcast about nothing. Hosted by a couple of people. Sometimes guests show up.</p>
+    </div>
+  </div>
+
+  <div class='content'>
+    <supercast-gate subdomain="example" environment="development">
+      <div slot="available">
+        <h2>Add to your player</h2>
+        <supercast-player-links subdomain="example" environment="development"></supercast-player-links>
+      </div>
+      <div slot="unavailable">
+        <h2>Become a member!</h2>
+
+        <p>This page requires a premium subscription.</p>
+
+        <p><sl-button data-action="startPurchase">Sign up now</sl-button> or  <sl-button data-action="login">Login</sl-button></p>
+      </div>
+    </supercast-gate>
+  </div>
+
+  <script>
+    document.querySelectorAll("[data-action='startPurchase']").forEach(el => {
+      el.addEventListener('click', () => {
+        Supercast.startPurchase({ planId: 3, subdomain: 'example', environment: 'development'})
+      });
+    })
+
+    document.querySelectorAll("[data-action='login']").forEach(el => {
+      el.addEventListener('click', () => {
+        Supercast.login({ subdomain: 'example', environment: 'development'})
+      });
+    })
+  </script>
+</body>
+</html>
